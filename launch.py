@@ -8,7 +8,8 @@ def launch():
     main_window = Window(600, 600)
 
     board = Maze(0, 0, 6, 6, main_window)
-
+    board._animate()
+    
     # # Vertical move.
     # vert1 = Cell(50, 200, 150, 100, main_window)
     # vert1.has_bottom_wall = False

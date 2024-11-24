@@ -20,7 +20,16 @@ class Cell:
         self._win = win
         self.center = self.get_midpoint()
 
+    def _draw(self):
+        if(self._x1 < self._x2 and self._y1 > self._y2):
+            self.draw(self._x1, self._y1, self._x2, self._y2)
+        else:
+            self.draw(self._x2, self._y2, self._x1, self._y1)
+
     def draw(self, tl_x, tl_y, br_x, br_y):
+        if(self._win == None):
+            return
+
         t_point = None
         b_point = None
         
