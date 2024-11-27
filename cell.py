@@ -19,6 +19,7 @@ class Cell:
         self._y2 = y2
         self._win = win
         self.center = self.get_midpoint()
+        self.visited = False
 
     def _draw(self):
         if(self._x1 < self._x2 and self._y1 > self._y2):
@@ -30,39 +31,47 @@ class Cell:
         if(self._win == None):
             return
 
-        t_point = None
-        b_point = None
+        t_point = Point(tl_x, tl_y)
+        b_point = Point(tl_x, br_y)
         
         # Left Wall
         if(self.has_left_wall):
-            t_point = Point(tl_x, tl_y)
-            b_point = Point(tl_x, br_y)
             Line(t_point, b_point).draw(self._win.canvas)
+        else:
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
+
+        t_point = Point(br_x, tl_y)
+        b_point = Point(br_x, br_y)
         
         # Right Wall
         if(self.has_right_wall):
-            t_point = Point(br_x, tl_y)
-            b_point = Point(br_x, br_y)
             Line(t_point, b_point).draw(self._win.canvas)
+        else:
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
+        t_point = Point(tl_x, tl_y)
+        b_point = Point(br_x, tl_y)
+        
         # Bottom Wall
         if(self.has_bottom_wall):
-            t_point = Point(tl_x, tl_y)
-            b_point = Point(br_x, tl_y)
             Line(t_point, b_point).draw(self._win.canvas)
+        else:
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
+        t_point = Point(tl_x, br_y)
+        b_point = Point(br_x, br_y)
+        
         # Top Wall
         if(self.has_top_wall):
-            t_point = Point(tl_x, br_y)
-            b_point = Point(br_x, br_y)
             Line(t_point, b_point).draw(self._win.canvas)
+        else:
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
     def draw_move(self, to_cell, undo=False):
         fill_colour = "gray" if(undo) else "red"
 
         if(not self == to_cell):
             Line(self.center, to_cell.center).draw(self._win.canvas, fill_colour)
-
 
     def __eq__(self, to_cell):
         return (self._x1 == to_cell._x1) and (self._y1 == to_cell._y1) and (self._x2 == to_cell._x2) and (self._y2 == to_cell._y2) 

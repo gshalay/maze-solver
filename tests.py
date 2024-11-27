@@ -64,6 +64,12 @@ class Tests(unittest.TestCase):
         
         #Invalid Rows (Rounds down to 0)
         self.assertRaises(Exception, Maze(0, 0, num_rows2, num_cols, None))
+    
+    def test_break_entrance_and_exit(self):
+        m1 = Maze(0, 0, 3, 3, None)
+        
+        self.assertEqual(False, m1._cells[0][0].has_top_wall)
+        self.assertEqual(False, m1._cells[m1.num_cols - 1][m1.num_rows - 1].has_bottom_wall)
 
 if __name__ == "__main__":
     unittest.main()

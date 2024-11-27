@@ -6,7 +6,7 @@ class Window:
         self.root = Tk()
         self.width = width
         self.height = height
-        self.canvas = Canvas(width=width, height=height)
+        self.canvas = Canvas(width=width+50, height=height+50)
         self.is_running = False
         self.root.geometry(str(width) + "x" + str(height))
 
