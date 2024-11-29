@@ -6,6 +6,7 @@ class Cell:
     has_right_wall = True
     has_top_wall = True
     has_bottom_wall = True
+    visited = False
             
     def get_midpoint(self):
         center_x = round((self._x1 + self._x2) / 2, 2)
@@ -19,7 +20,6 @@ class Cell:
         self._y2 = y2
         self._win = win
         self.center = self.get_midpoint()
-        self.visited = False
 
     def _draw(self):
         if(self._x1 < self._x2 and self._y1 > self._y2):

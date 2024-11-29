@@ -2,6 +2,7 @@ from cell import *
 import time
 import random
 from cell_location import CellLocation
+
 class Maze:
     def __init__(self, x1, y1, num_rows, num_cols, win, seed=None):
         self.x1 = x1
@@ -15,7 +16,8 @@ class Maze:
         self.seed = seed
 
         if(seed):
-            self.seed = random.seed(seed)
+            random.seed(seed)
+            self.seed = random.random()
 
         # Adjust so that the maze is slightly smaller than the canvas and the surrounding window.
         self.cell_size_x = self.cell_size_x if(self.cell_size_x - 5 <= 10) else self.cell_size_x - 5.0
@@ -23,10 +25,13 @@ class Maze:
 
         self._create_cells()
         self._break_entrance_and_exit()
+        if(len(self._cells) > 2):
+            self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def get_cell_dim(self, calc_width=False):
         if(self._win == None):
-            return 1
+            return 0
         if(calc_width and self._win):
             if(self.num_cols == 0):
                 raise Exception("Columns must be greater than 1.")
@@ -43,7 +48,8 @@ class Maze:
             for j in range(self.num_rows):
                 current_row.append(Cell((i * self.cell_size_x) + 5, (j * self.cell_size_y) + 5, (i * self.cell_size_x) + self.cell_size_x + 5, (j * self.cell_size_y) + self.cell_size_y + 5, self._win))
 
-            self._cells.append(current_row)
+            if(current_row):
+                self._cells.append(current_row)
 
         for i in range(self.num_cols):
             for j in range(self.num_rows):
@@ -88,32 +94,48 @@ class Maze:
             case _:
                 return
 
-
-
     def _break_walls_r(self, i, j):
         self._cells[i][j].visited = True
-
+        
         while True:
             to_visit = []
-
             if(i - 1 >= 0):
-                to_visit.append(tuple(i - 1, j, CellLocation.LEFT))
+                if(not self._cells[i - 1][j].visited):
+                    to_visit.append((i - 1, j, CellLocation.LEFT))
             if(i + 1 < self.num_cols):
-                to_visit.append(tuple(i + 1, j, CellLocation.RIGHT))
+                if(not self._cells[i + 1][j].visited):
+                    to_visit.append((i + 1, j, CellLocation.RIGHT))
             if(j - 1 >= 0):
-                to_visit.append(tuple(i, j - 1, CellLocation.BOTTOM))
+                if(not self._cells[i][j - 1].visited):
+                    to_visit.append((i, j - 1, CellLocation.BOTTOM))
             if(j + 1 < self.num_rows):
-                to_visit.append(tuple(i, j + 1, CellLocation.TOP))
+                if(not self._cells[i][j + 1].visited):
+                    to_visit.append((i, j + 1, CellLocation.TOP))
 
-            if(len(to_visit) == 0):
+            if(not to_visit or (i == self.num_cols - 1 and j == self.num_rows - 1)):
                 self._cells[i][j]._draw()
                 return
             else:
-                next_cell = random.randrange(0, len(to_visit))
-                self.break_connecting_walls(self._cells[i][j], to_visit[next_cell])              
-                self._break_walls_r(to_visit[next_cell][0], to_visit[next_cell][1])
-                self._reset_cells_visited()
+                while to_visit:
+                    next_cell = random.choice(to_visit)
+                    to_visit.remove(next_cell)
+                    if not self._cells[next_cell[0]][next_cell[1]].visited:
+                        self.break_connecting_walls(self._cells[i][j], next_cell)
+                        self._break_walls_r(next_cell[0], next_cell[1])
     
+    def is_cell_maze_boundary(self):
+        # TODO: Implement the following:
+        # This will be a helper function that checks if a cell is a part of the maze boundary.
+        # LEFT WALL: X = 0
+        # RIGHT WALL: X = num_cols - 1
+        # TOP WALL: Y = 0
+        # BOTTOM WALL: Y = num_rows - 1
+
+        # Be sure to remove the top wall of (0, 0) and the bottom wall of (num_cols - 1, num_rows - 1)
+        # This needs to be added to each check that will draw a wall.
+
+        raise NotImplementedError
+
     def _reset_cells_visited(self):
         for i in range(0, self.num_cols):
             for j in range(0, self.num_rows):
@@ -189,7 +211,5 @@ class Maze:
                 current_cell.draw_move(self._cells[i][j - 1], True)
                         
         return False
-
-
 
 
