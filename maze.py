@@ -24,9 +24,9 @@ class Maze:
         self.cell_size_y = self.cell_size_y if(self.cell_size_y - 5 <= 10) else self.cell_size_y - 5.0
 
         self._create_cells()
-        self._break_entrance_and_exit()
         if(len(self._cells) > 2):
             self._break_walls_r(0, 0)
+        #self._break_entrance_and_exit()
         self._reset_cells_visited()
 
     def get_cell_dim(self, calc_width=False):
@@ -41,6 +41,12 @@ class Maze:
                 raise Exception("Rows must be greater than 1.")
             return self._win.height / self.num_rows
     
+
+    def find_cell_idx(self, search_cell):
+        for i in range(self.num_cols):
+            for j in range(self.num_rows):
+                if(self._cells[i][j] == search_cell):
+                    return (i, j)
 
     def _create_cells(self):
         for i in range(self.num_cols):
@@ -70,24 +76,44 @@ class Maze:
             case CellLocation.LEFT:
                 dest_cell.has_right_wall = False
                 current_cell.has_left_wall = False
+
+                coords = self.find_cell_idx(current_cell)
+                print(f"\nBreaking left wall of Source Cell[{coords[0]}, {coords[1]}]")
+                print(f"Breaking right wall of Dest Cell[{dest_tuple[0]}, {dest_tuple[1]}]\n")
+
                 dest_cell._draw()
                 current_cell._draw()
                 return
             case CellLocation.RIGHT:
                 dest_cell.has_left_wall = False
                 current_cell.has_right_wall = False
+
+                coords = self.find_cell_idx(current_cell)
+                print(f"\nBreaking right wall of Source Cell[{coords[0]}, {coords[1]}]")
+                print(f"Breaking left wall of Dest Cell[{dest_tuple[0]}, {dest_tuple[1]}]\n")
+                
                 dest_cell._draw()
                 current_cell._draw()
                 return
             case CellLocation.TOP:
                 dest_cell.has_bottom_wall = False
                 current_cell.has_top_wall = False
+
+                coords = self.find_cell_idx(current_cell)
+                print(f"\nBreaking top wall of Source Cell[{coords[0]}, {coords[1]}]")
+                print(f"Breaking bottom wall of Dest Cell[{dest_tuple[0]}, {dest_tuple[1]}]\n")
+
                 dest_cell._draw()
                 current_cell._draw()
                 return
             case CellLocation.BOTTOM:
                 dest_cell.has_top_wall = False
                 current_cell.has_bottom_wall = False
+
+                coords = self.find_cell_idx(current_cell)
+                print(f"\nBreaking bottom wall of Source Cell[{coords[0]}, {coords[1]}]")
+                print(f"Breaking top wall of Dest Cell[{dest_tuple[0]}, {dest_tuple[1]}]\n")
+
                 dest_cell._draw()
                 current_cell._draw()
                 return
@@ -100,17 +126,21 @@ class Maze:
         while True:
             to_visit = []
             if(i - 1 >= 0):
-                if(not self._cells[i - 1][j].visited):
+                # move_info = (i - 1, j, CellLocation.LEFT)
+                if(not self._cells[i - 1][j].visited and not self.cell_has_minimum_walls(self._cells[i - 1][j]) and not self.is_cell_left_maze_boundary(i - 1)):
+                    # print(f"Cell [{i}, {j}] has a valid left move to Cell[{i - 1}, {j}]")
                     to_visit.append((i - 1, j, CellLocation.LEFT))
             if(i + 1 < self.num_cols):
-                if(not self._cells[i + 1][j].visited):
+                if(not self._cells[i + 1][j].visited and not self.cell_has_minimum_walls(self._cells[i + 1][j]) and not self.is_cell_right_maze_boundary(i + 1)):
                     to_visit.append((i + 1, j, CellLocation.RIGHT))
             if(j - 1 >= 0):
-                if(not self._cells[i][j - 1].visited):
-                    to_visit.append((i, j - 1, CellLocation.BOTTOM))
+                if(not self._cells[i][j - 1].visited and not self.cell_has_minimum_walls(self._cells[i][j - 1]) and not self.is_cell_top_maze_boundary(j - 1)):
+                    to_visit.append((i, j - 1, CellLocation.TOP))
             if(j + 1 < self.num_rows):
-                if(not self._cells[i][j + 1].visited):
-                    to_visit.append((i, j + 1, CellLocation.TOP))
+                if(not self._cells[i][j + 1].visited and not self.cell_has_minimum_walls(self._cells[i][j + 1]) and not self.is_cell_bottom_maze_boundary(j + 1)):
+                    # print(f"Cell [{i}, {j}] has a valid bottom move to Cell[{i}, {j + 1}]")
+                    
+                    to_visit.append((i, j + 1, CellLocation.BOTTOM))
 
             if(not to_visit or (i == self.num_cols - 1 and j == self.num_rows - 1)):
                 self._cells[i][j]._draw()
@@ -119,22 +149,29 @@ class Maze:
                 while to_visit:
                     next_cell = random.choice(to_visit)
                     to_visit.remove(next_cell)
-                    if not self._cells[next_cell[0]][next_cell[1]].visited:
+                    if not self._cells[next_cell[0]][next_cell[1]].visited and not self.cell_has_minimum_walls(self._cells[next_cell[0]][next_cell[1]]):
                         self.break_connecting_walls(self._cells[i][j], next_cell)
                         self._break_walls_r(next_cell[0], next_cell[1])
     
-    def is_cell_maze_boundary(self):
-        # TODO: Implement the following:
-        # This will be a helper function that checks if a cell is a part of the maze boundary.
-        # LEFT WALL: X = 0
-        # RIGHT WALL: X = num_cols - 1
-        # TOP WALL: Y = 0
-        # BOTTOM WALL: Y = num_rows - 1
+    # By default, We want the minimum to be 1. 
+    def cell_has_minimum_walls(self, current_cell):
+        return sum([current_cell.has_left_wall, current_cell.has_right_wall, current_cell.has_top_wall, current_cell.has_bottom_wall]) <= 1
 
-        # Be sure to remove the top wall of (0, 0) and the bottom wall of (num_cols - 1, num_rows - 1)
-        # This needs to be added to each check that will draw a wall.
+    def is_cell_left_maze_boundary(self, i):
+        return i == 0
+    
+    def is_cell_right_maze_boundary(self, i):
+        return i == self.num_cols - 1
+    
+    def is_cell_top_maze_boundary(self, j):
+        return j == 0
 
-        raise NotImplementedError
+    def is_cell_bottom_maze_boundary(self, j):
+        return j == self.num_rows - 1
+
+    def is_cell_maze_boundary(self, i, j):
+        return (self.is_cell_left_maze_boundary(i) or self.is_cell_right_maze_boundary(i) or 
+                self.is_cell_top_maze_boundary(j) or self.is_cell_bottom_maze_boundary(j)) 
 
     def _reset_cells_visited(self):
         for i in range(0, self.num_cols):
@@ -193,22 +230,22 @@ class Maze:
                 current_cell.draw_move(self._cells[i + 1][j], True)
             
         # Top Cell
-        if(self.can_traverse_to_cell(current_cell, i, j + 1, CellLocation.TOP)):
-            current_cell.draw_move(self._cells[i][j + 1])
-
-            if(self._solve_r(i, j + 1)):
-                return True
-            else:
-                current_cell.draw_move(self._cells[i][j + 1], True)
-            
-        # Bottom Cell
-        if(self.can_traverse_to_cell(current_cell, i - 1, j, CellLocation.BOTTOM)):
+        if(self.can_traverse_to_cell(current_cell, j - 1, j, CellLocation.TOP)):
             current_cell.draw_move(self._cells[i][j - 1])
 
             if(self._solve_r(i, j - 1)):
                 return True
             else:
                 current_cell.draw_move(self._cells[i][j - 1], True)
+
+        # Bottom Cell
+        if(self.can_traverse_to_cell(current_cell, i, j + 1, CellLocation.BOTTOM)):
+            current_cell.draw_move(self._cells[i][j + 1])
+
+            if(self._solve_r(i, j + 1)):
+                return True
+            else:
+                current_cell.draw_move(self._cells[i][j + 1], True)
                         
         return False
 
