@@ -1,0 +1,271 @@
+Source Cell [0, 0] has a valid right move to Dest Cell[1, 0]
+Source Cell [0, 0] has a valid bottom move to Dest Cell[0, 1]
+
+to_visit[(1, 0, <CellLocation.RIGHT: 2>), (0, 1, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[0, 0]
+Breaking top wall of Dest Cell[0, 1]
+
+Source Cell [0, 1] has a valid right move to Dest Cell[1, 1]
+Source Cell [0, 1] has a valid bottom move to Dest Cell[0, 2]
+
+to_visit[(1, 1, <CellLocation.RIGHT: 2>), (0, 2, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[0, 1]
+Breaking top wall of Dest Cell[0, 2]
+
+Source Cell [0, 2] has a valid right move to Dest Cell[1, 2]
+Source Cell [0, 2] has a valid bottom move to Dest Cell[0, 3]
+
+to_visit[(1, 2, <CellLocation.RIGHT: 2>), (0, 3, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking right wall of Source Cell[0, 2]
+Breaking left wall of Dest Cell[1, 2]
+
+Source Cell [1, 2] has a valid right move to Dest Cell[2, 2]
+Source Cell [1, 2] has a valid top move to Dest Cell[1, 1]
+Source Cell [1, 2] has a valid bottom move to Dest Cell[1, 3]
+
+to_visit[(2, 2, <CellLocation.RIGHT: 2>), (1, 1, <CellLocation.TOP: 3>), (1, 3, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking top wall of Source Cell[1, 2]
+Breaking bottom wall of Dest Cell[1, 1]
+
+Source Cell [1, 1] has a valid right move to Dest Cell[2, 1]
+
+to_visit[(2, 1, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[1, 1]
+Breaking left wall of Dest Cell[2, 1]
+
+Source Cell [2, 1] has a valid right move to Dest Cell[3, 1]
+Source Cell [2, 1] has a valid bottom move to Dest Cell[2, 2]
+
+to_visit[(3, 1, <CellLocation.RIGHT: 2>), (2, 2, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[2, 1]
+Breaking top wall of Dest Cell[2, 2]
+
+Source Cell [2, 2] has a valid right move to Dest Cell[3, 2]
+Source Cell [2, 2] has a valid bottom move to Dest Cell[2, 3]
+
+to_visit[(3, 2, <CellLocation.RIGHT: 2>), (2, 3, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[2, 2]
+Breaking top wall of Dest Cell[2, 3]
+
+Source Cell [2, 3] has a valid left move to Dest Cell[1, 3]
+Source Cell [2, 3] has a valid right move to Dest Cell[3, 3]
+Source Cell [2, 3] has a valid bottom move to Dest Cell[2, 4]
+
+to_visit[(1, 3, <CellLocation.LEFT: 1>), (3, 3, <CellLocation.RIGHT: 2>), (2, 4, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking left wall of Source Cell[2, 3]
+Breaking right wall of Dest Cell[1, 3]
+
+Source Cell [1, 3] has a valid bottom move to Dest Cell[1, 4]
+
+to_visit[(1, 4, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[1, 3]
+Breaking top wall of Dest Cell[1, 4]
+
+Source Cell [1, 4] has a valid right move to Dest Cell[2, 4]
+
+to_visit[(2, 4, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[1, 4]
+Breaking left wall of Dest Cell[2, 4]
+
+Source Cell [2, 4] has a valid right move to Dest Cell[3, 4]
+
+to_visit[(3, 4, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[2, 4]
+Breaking left wall of Dest Cell[3, 4]
+
+Source Cell [3, 4] has a valid right move to Dest Cell[4, 4]
+Source Cell [3, 4] has a valid top move to Dest Cell[3, 3]
+
+to_visit[(4, 4, <CellLocation.RIGHT: 2>), (3, 3, <CellLocation.TOP: 3>)]
+
+
+Breaking top wall of Source Cell[3, 4]
+Breaking bottom wall of Dest Cell[3, 3]
+
+Source Cell [3, 3] has a valid right move to Dest Cell[4, 3]
+Source Cell [3, 3] has a valid top move to Dest Cell[3, 2]
+
+to_visit[(4, 3, <CellLocation.RIGHT: 2>), (3, 2, <CellLocation.TOP: 3>)]
+
+
+Breaking top wall of Source Cell[3, 3]
+Breaking bottom wall of Dest Cell[3, 2]
+
+Source Cell [3, 2] has a valid right move to Dest Cell[4, 2]
+Source Cell [3, 2] has a valid top move to Dest Cell[3, 1]
+
+to_visit[(4, 2, <CellLocation.RIGHT: 2>), (3, 1, <CellLocation.TOP: 3>)]
+
+
+Breaking top wall of Source Cell[3, 2]
+Breaking bottom wall of Dest Cell[3, 1]
+
+Source Cell [3, 1] has a valid right move to Dest Cell[4, 1]
+
+to_visit[(4, 1, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[3, 1]
+Breaking left wall of Dest Cell[4, 1]
+
+Source Cell [4, 1] has a valid bottom move to Dest Cell[4, 2]
+
+to_visit[(4, 2, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[4, 1]
+Breaking top wall of Dest Cell[4, 2]
+
+Source Cell [4, 2] has a valid bottom move to Dest Cell[4, 3]
+
+to_visit[(4, 3, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[4, 2]
+Breaking top wall of Dest Cell[4, 3]
+
+Source Cell [4, 3] has a valid bottom move to Dest Cell[4, 4]
+
+to_visit[(4, 4, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[4, 3]
+Breaking top wall of Dest Cell[4, 4]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+Breaking bottom wall of Source Cell[0, 2]
+Breaking top wall of Dest Cell[0, 3]
+
+Source Cell [0, 3] has a valid bottom move to Dest Cell[0, 4]
+
+to_visit[(0, 4, <CellLocation.BOTTOM: 4>)]
+
+
+Breaking bottom wall of Source Cell[0, 3]
+Breaking top wall of Dest Cell[0, 4]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+Breaking right wall of Source Cell[0, 0]
+Breaking left wall of Dest Cell[1, 0]
+
+Source Cell [1, 0] has a valid right move to Dest Cell[2, 0]
+
+to_visit[(2, 0, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[1, 0]
+Breaking left wall of Dest Cell[2, 0]
+
+Source Cell [2, 0] has a valid right move to Dest Cell[3, 0]
+
+to_visit[(3, 0, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[2, 0]
+Breaking left wall of Dest Cell[3, 0]
+
+Source Cell [3, 0] has a valid right move to Dest Cell[4, 0]
+
+to_visit[(4, 0, <CellLocation.RIGHT: 2>)]
+
+
+Breaking right wall of Source Cell[3, 0]
+Breaking left wall of Dest Cell[4, 0]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+
+
+to_visit[]
+

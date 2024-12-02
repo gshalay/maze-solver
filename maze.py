@@ -128,19 +128,22 @@ class Maze:
             if(i - 1 >= 0):
                 # move_info = (i - 1, j, CellLocation.LEFT)
                 if(not self._cells[i - 1][j].visited and not self.cell_has_minimum_walls(self._cells[i - 1][j]) and not self.is_cell_left_maze_boundary(i - 1)):
-                    # print(f"Cell [{i}, {j}] has a valid left move to Cell[{i - 1}, {j}]")
+                    print(f"Source Cell [{i}, {j}] has a valid left move to Dest Cell[{i - 1}, {j}]")
                     to_visit.append((i - 1, j, CellLocation.LEFT))
             if(i + 1 < self.num_cols):
                 if(not self._cells[i + 1][j].visited and not self.cell_has_minimum_walls(self._cells[i + 1][j]) and not self.is_cell_right_maze_boundary(i + 1)):
+                    print(f"Source Cell [{i}, {j}] has a valid right move to Dest Cell[{i + 1}, {j}]")
                     to_visit.append((i + 1, j, CellLocation.RIGHT))
             if(j - 1 >= 0):
                 if(not self._cells[i][j - 1].visited and not self.cell_has_minimum_walls(self._cells[i][j - 1]) and not self.is_cell_top_maze_boundary(j - 1)):
+                    print(f"Source Cell [{i}, {j}] has a valid top move to Dest Cell[{i}, {j - 1}]")
                     to_visit.append((i, j - 1, CellLocation.TOP))
             if(j + 1 < self.num_rows):
                 if(not self._cells[i][j + 1].visited and not self.cell_has_minimum_walls(self._cells[i][j + 1]) and not self.is_cell_bottom_maze_boundary(j + 1)):
-                    # print(f"Cell [{i}, {j}] has a valid bottom move to Cell[{i}, {j + 1}]")
-                    
+                    print(f"Source Cell [{i}, {j}] has a valid bottom move to Dest Cell[{i}, {j + 1}]")
                     to_visit.append((i, j + 1, CellLocation.BOTTOM))
+
+            print(f"\nto_visit{to_visit}\n")
 
             if(not to_visit or (i == self.num_cols - 1 and j == self.num_rows - 1)):
                 self._cells[i][j]._draw()

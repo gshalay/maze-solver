@@ -34,18 +34,18 @@ class Cell:
         t_point = Point(tl_x, tl_y)
         b_point = Point(tl_x, br_y)
         
-        # Left Wall
-        if(self.has_left_wall):
-            Line(t_point, b_point).draw(self._win.canvas)
+        # Right Wall
+        if(self.has_right_wall):
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="red")
         else:
             Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
         t_point = Point(br_x, tl_y)
         b_point = Point(br_x, br_y)
         
-        # Right Wall
-        if(self.has_right_wall):
-            Line(t_point, b_point).draw(self._win.canvas)
+        # Left Wall
+        if(self.has_left_wall):
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#FAFA33")
         else:
             Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
@@ -54,7 +54,7 @@ class Cell:
         
         # Bottom Wall
         if(self.has_bottom_wall):
-            Line(t_point, b_point).draw(self._win.canvas)
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="blue")
         else:
             Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
@@ -63,7 +63,7 @@ class Cell:
         
         # Top Wall
         if(self.has_top_wall):
-            Line(t_point, b_point).draw(self._win.canvas)
+            Line(t_point, b_point).draw(self._win.canvas, fill_color="#D88FD8")
         else:
             Line(t_point, b_point).draw(self._win.canvas, fill_color="#d9d9d9")
 
